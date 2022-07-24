@@ -22,28 +22,26 @@ public class App {
         // Filter the data from movies (Title, Rate, Poster)
         var parser = new JsonParser();
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
-        // Show and manipulate data
+
+        // Manipulate Data and show them
         GeradoraDeStickers generator = new GeradoraDeStickers();
         for (Map<String,String> filmes : listaDeFilmes) {
             String urlImagebrute = filmes.get("image");
-            // int index = urlImagebrute.lastIndexOf("@");
+            String rateString = filmes.get("imDbRating");
+            float rate = Float.parseFloat(rateString);
             var urlImage = urlImagebrute.substring(0, urlImagebrute.length()-32) +".png";
             String title = filmes.get("title");
             
             try {
                 String nomeArquivo = title + ".png";
                 InputStream inputStream = new URL(urlImage).openStream();
-                generator.createStick(inputStream, nomeArquivo);
+                generator.createStick(inputStream, rate,nomeArquivo);
                 System.out.println("\u001b[3mTitle:\u001b[m\u001b[32;1m "+title+"\u001b[m");
             } catch (Exception e) {
                 System.out.println("\u001b[3mTitle:\u001b[m\u001b[32;0m "+title+"\u001b[31;1m| Invalid URL\u001b[m");
                 System.out.println("\u001b[3mImage: \u001b[m\u001b[34;4m"+urlImagebrute+"\u001b[m");
                 System.out.println("\u001b[3mImage: \u001b[m\u001b[34;4m"+urlImage+"\u001b[m");
             }
-
-            
-            //
-            //System.out.println("\u001b[3mRate:\u001b[m\u001b[38;5;214m "+filmes.get("imDbRating")+"\u001b[m");
         }
     }
 }
