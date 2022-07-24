@@ -40,7 +40,6 @@ public class App {
             } catch (Exception e) {
                 System.out.println("\u001b[3mTitle:\u001b[m\u001b[32;0m "+title+"\u001b[31;1m| Invalid URL\u001b[m");
                 System.out.println("\u001b[3mImage: \u001b[m\u001b[34;4m"+urlImagebrute+"\u001b[m");
-                System.out.println("\u001b[3mImage: \u001b[m\u001b[34;4m"+urlImage+"\u001b[m");
             }
         }
     }

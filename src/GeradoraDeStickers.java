@@ -17,15 +17,16 @@ public class GeradoraDeStickers {
         BufferedImage originalImage = ImageIO.read(inputStream);
 
         // create new image without background
-        int width = originalImage.getWidth();
-        int height = originalImage.getHeight();
-        int newHeight = (int) ((height * 0.04) + height);
-        int fontSize = (int) ((newHeight - height) * 0.65);
+        int width = 750;//originalImage.getWidth();
+        int height = 1200;//originalImage.getHeight();
+        int newHeight = height+130;//(int) ((height * 0.04) + height);
+        int fontSize = 64;//(int) ((newHeight - height) * 0.65);
         BufferedImage newImage = new BufferedImage(width, newHeight, BufferedImage.TRANSLUCENT);
         
         // copy original image to a new image (memory)
-        Graphics2D graphics = (Graphics2D) newImage.getGraphics();
-        graphics.drawImage(originalImage, 0, 0, null);
+        Graphics2D graphics = (Graphics2D) newImage.createGraphics();
+        graphics.drawImage(originalImage, 0, 0, width, height, null);
+        
 
         // config font
         try {
@@ -45,16 +46,16 @@ public class GeradoraDeStickers {
             return;
         } else if (rate >= 8.8) {
             graphics.setColor(Color.GREEN);
-            graphics.drawString("BOM DEMAIS"+" "+ rate, (int) ((width/6)*2), (int) (newHeight-(newHeight * 0.015)));
+            graphics.drawString("BOM DEMAIS"+" "+ rate, (int) (width/10), (int) (newHeight-50));
             
         } else if (rate >= 8.4 && rate < 8.8) {
             graphics.setColor(Color.YELLOW);
-            graphics.drawString("TOPZEIRA"+" "+ rate, (int) ((width/6)*2), (int) (newHeight-(newHeight * 0.015)));
+            graphics.drawString("TOPZEIRA"+" "+ rate, (int) ((width/10)*1.5), (int) (newHeight-50));
         } else {
             graphics.setColor(Color.RED);
-            graphics.drawString("ESSE É BOM"+" "+ rate, (int) ((width/6)*2), (int) (newHeight-(newHeight * 0.015)));
+            graphics.drawString("ESSE É BOM"+" "+ rate, (int) ((width/10)*1.3), (int) (newHeight-50));
         }
-
+        graphics.dispose();
         
 
         // write new image in a archive
@@ -63,7 +64,7 @@ public class GeradoraDeStickers {
         if (!folder.exists()) {
             folder.mkdir();
         }
-        ImageIO.write(newImage, "png", new File("output/"+nomeArquivo));
+        ImageIO.write(newImage, "png", new File(StringPath+nomeArquivo));
     }
     
 }
