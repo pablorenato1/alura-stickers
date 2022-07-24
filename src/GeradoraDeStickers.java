@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 public class GeradoraDeStickers {
 
-    public void createStick(InputStream inputStream, String nomeArquivo) throws Exception {
+    public void createStick(InputStream inputStream, Float rate, String nomeArquivo) throws Exception {
         
         // read image
         //InputStream inputStream = new FileInputStream(new File("entry/filme.jpg")); // Local File
@@ -19,29 +19,43 @@ public class GeradoraDeStickers {
         // create new image without background
         int width = originalImage.getWidth();
         int height = originalImage.getHeight();
-        int newHeight = height + 150;
+        int newHeight = (int) ((height * 0.04) + height);
+        int fontSize = (int) ((newHeight - height) * 0.65);
         BufferedImage newImage = new BufferedImage(width, newHeight, BufferedImage.TRANSLUCENT);
-
+        
         // copy original image to a new image (memory)
         Graphics2D graphics = (Graphics2D) newImage.getGraphics();
         graphics.drawImage(originalImage, 0, 0, null);
 
         // config font
-        //
         try {
             Font font = 
                 Font.createFont(Font.TRUETYPE_FONT, new File("properties/COMIC.TTF"));
-            Font bold = font.deriveFont(Font.BOLD, 82);
+            Font bold = font.deriveFont(Font.BOLD, fontSize);
             graphics.setColor(Color.CYAN);
             graphics.setFont(bold);
         } catch (Exception e) {
-            Font font = new Font(Font.SANS_SERIF, Font.ITALIC, 82);
+            Font font = new Font(Font.SANS_SERIF, Font.ITALIC, fontSize);
             graphics.setColor(Color.CYAN);
             graphics.setFont(font);
         }
 
         // write a phrase in the new image
-        graphics.drawString("Approved", (width/4)-20, height+100);
+        if (newHeight > 11000) {
+            return;
+        } else if (rate >= 8.8) {
+            graphics.setColor(Color.GREEN);
+            graphics.drawString("BOM DEMAIS"+" "+ rate, (int) ((width/6)*2), (int) (newHeight-(newHeight * 0.015)));
+            
+        } else if (rate >= 8.4 && rate < 8.8) {
+            graphics.setColor(Color.YELLOW);
+            graphics.drawString("TOPZEIRA"+" "+ rate, (int) ((width/6)*2), (int) (newHeight-(newHeight * 0.015)));
+        } else {
+            graphics.setColor(Color.RED);
+            graphics.drawString("ESSE É BOM"+" "+ rate, (int) ((width/6)*2), (int) (newHeight-(newHeight * 0.015)));
+        }
+
+        
 
         // write new image in a archive
         var StringPath = "output/";
