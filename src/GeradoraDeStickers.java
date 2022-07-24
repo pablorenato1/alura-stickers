@@ -12,22 +12,19 @@ public class GeradoraDeStickers {
     public void createStick(InputStream inputStream, Float rate, String nomeArquivo) throws Exception {
         
         // read image
-        //InputStream inputStream = new FileInputStream(new File("entry/filme.jpg")); // Local File
-        //InputStream inputStream = new URL("https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@.jpg").openStream();
         BufferedImage originalImage = ImageIO.read(inputStream);
 
         // create new image without background
-        int width = 750;//originalImage.getWidth();
-        int height = 1200;//originalImage.getHeight();
-        int newHeight = height+130;//(int) ((height * 0.04) + height);
-        int fontSize = 64;//(int) ((newHeight - height) * 0.65);
+        int width = 750;
+        int height = 1200;
+        int newHeight = height+130;
+        int fontSize = 64;
         BufferedImage newImage = new BufferedImage(width, newHeight, BufferedImage.TRANSLUCENT);
         
         // copy original image to a new image (memory)
         Graphics2D graphics = (Graphics2D) newImage.createGraphics();
         graphics.drawImage(originalImage, 0, 0, width, height, null);
         
-
         // config font
         try {
             Font font = 
@@ -42,9 +39,7 @@ public class GeradoraDeStickers {
         }
 
         // write a phrase in the new image
-        if (newHeight > 11000) {
-            return;
-        } else if (rate >= 8.8) {
+        if (rate >= 8.8) {
             graphics.setColor(Color.GREEN);
             graphics.drawString("BOM DEMAIS"+" "+ rate, (int) (width/10), (int) (newHeight-50));
             
