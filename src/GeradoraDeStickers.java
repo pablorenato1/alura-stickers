@@ -12,8 +12,6 @@ public class GeradoraDeStickers {
     public void createStick(InputStream inputStream, Float rate, String nomeArquivo) throws Exception {
         
         // read image
-        //InputStream inputStream = new FileInputStream(new File("entry/filme.jpg")); // Local File
-        //InputStream inputStream = new URL("https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@.jpg").openStream();
         BufferedImage originalImage = ImageIO.read(inputStream);
 
         // create new image without background
@@ -45,14 +43,14 @@ public class GeradoraDeStickers {
             return;
         } else if (rate >= 8.8) {
             graphics.setColor(Color.GREEN);
-            graphics.drawString("BOM DEMAIS"+" "+ rate, (int) ((width/6)*2), (int) (newHeight-(newHeight * 0.015)));
+            graphics.drawString("BOM DEMAIS"+" "+ rate, (int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
             
         } else if (rate >= 8.4 && rate < 8.8) {
             graphics.setColor(Color.YELLOW);
-            graphics.drawString("TOPZEIRA"+" "+ rate, (int) ((width/6)*2), (int) (newHeight-(newHeight * 0.015)));
+            graphics.drawString("TOPZEIRA"+" "+ rate, (int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
         } else {
             graphics.setColor(Color.RED);
-            graphics.drawString("ESSE É BOM"+" "+ rate, (int) ((width/6)*2), (int) (newHeight-(newHeight * 0.015)));
+            graphics.drawString("ESSE É BOM"+" "+ rate, (int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
         }
 
         
