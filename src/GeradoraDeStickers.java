@@ -41,14 +41,14 @@ public class GeradoraDeStickers {
         // write a phrase in the new image
         if (rate >= 8.8) {
             graphics.setColor(Color.GREEN);
-            graphics.drawString("BOM DEMAIS"+" "+ rate, (int) (width/10), (int) (newHeight-50));
+            graphics.drawString("BOM DEMAIS"+" "+ rate, (int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
             
         } else if (rate >= 8.4 && rate < 8.8) {
             graphics.setColor(Color.YELLOW);
-            graphics.drawString("TOPZEIRA"+" "+ rate, (int) ((width/10)*1.5), (int) (newHeight-50));
+            graphics.drawString("TOPZEIRA"+" "+ rate, (int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
         } else {
             graphics.setColor(Color.RED);
-            graphics.drawString("ESSE É BOM"+" "+ rate, (int) ((width/10)*1.3), (int) (newHeight-50));
+            graphics.drawString("ESSE É BOM"+" "+ rate, (int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
         }
         graphics.dispose();
         
