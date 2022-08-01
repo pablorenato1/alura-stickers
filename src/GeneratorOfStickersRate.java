@@ -14,11 +14,11 @@ public class GeneratorOfStickersRate {
         // read image
         BufferedImage originalImage = ImageIO.read(inputStream);
 
-        // create new image without background
-        int width = 750;
-        int height = 1200;
-        int newHeight = height+130;
-        int fontSize = 64;
+        /// create new image without background
+        int width = (int) (originalImage.getWidth()* 0.85);
+        int height = (int) (originalImage.getHeight() * 0.85);
+        int newHeight = (int) ((height * 0.04) + height);
+        int fontSize = (int) ((newHeight - height) * 0.65);
         BufferedImage newImage = new BufferedImage(width, newHeight, BufferedImage.TRANSLUCENT);
         
         // copy original image to a new image (memory)

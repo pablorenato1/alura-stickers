@@ -7,7 +7,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         // Get Dataset
-        String apiName = "NASA"; // IMDB_MOVIES || NASA
+        String apiName = "IMDB_MOVIES"; // IMDB_MOVIES || NASA
         List<String> listWithRate = Arrays.asList("IMDB_MOVIES");
         var properties = new readPropriedades();
         String url = properties.getAPIUrl(apiName); 
@@ -16,15 +16,15 @@ public class App {
         String json = http.buscaDados(url);
         
         // IMDB API
-        // ExtratorDeConteudo extractor = new ExtratorDeConteudoDoIMDB();
+        ContentExtractor extractor = new IMDbExtractor();
 
         // NASA API
-        ContentExtractor extractor = new NasaExtractor();
+        // ContentExtractor extractor = new NasaExtractor();
 
         List<Content> contents = extractor.contentExtractor(json);
         Boolean tag = listWithRate.contains(apiName) ? true : false;
 
-        System.out.println("Does this API have rate attribute: " + tag);
+        System.out.println("Does this API have the attribute RATE: " + tag);
 
         GeneratorOFStickers generator = new GeneratorOFStickers();
         GeneratorOfStickersRate generatorR = new GeneratorOfStickersRate();
