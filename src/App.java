@@ -1,43 +1,54 @@
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
         // Get Dataset
+        String apiName = "NASA"; // IMDB_MOVIES || NASA
+        List<String> listWithRate = Arrays.asList("IMDB_MOVIES");
         var properties = new readPropriedades();
-        String url = properties.getAPIUrl("IMDB_MOVIES"); // IMDB_MOVIES || NASA
+        String url = properties.getAPIUrl(apiName); 
 
         var http = new ClienteHttp();
         String json = http.buscaDados(url);
         
         // IMDB API
-        ExtratorDeConteudo extractor = new ExtratorDeConteudoDoIMDB();
+        // ExtratorDeConteudo extractor = new ExtratorDeConteudoDoIMDB();
 
         // NASA API
-        // ExtratorDeConteudo extractor = new ExtratorDeConteudoDaNasa();
+        ContentExtractor extractor = new NasaExtractor();
 
-        List<Conteudo> contents = extractor.extractorOfContent(json);
+        List<Content> contents = extractor.contentExtractor(json);
+        Boolean tag = listWithRate.contains(apiName) ? true : false;
+
+        System.out.println("Does this API have rate attribute: " + tag);
+
+        GeneratorOFStickers generator = new GeneratorOFStickers();
+        GeneratorOfStickersRate generatorR = new GeneratorOfStickersRate();
 
         // Manipulate Data and show them
-        GeradoraDeStickers generator = new GeradoraDeStickers();
+        
         for (int i=0; i<5;i++) {
 
-            Conteudo content = contents.get(i);
-
-            //String rateString = content.get("imDbRating");
-            float rate = 10;
+            Content content = contents.get(i);
+            
             String title = content.getTitle();
             InputStream inputStream = new URL(content.getUrlImage()).openStream();
-            try {
-                generator.createStick(inputStream, rate, title.replace(":","")+".png");
-                System.out.println("\u001b[3mTitle:\u001b[m\u001b[32;1m "+title+"\u001b[m");
-            } catch (Exception e) {
-                System.out.println("\u001b[3mTitle:\u001b[m\u001b[32;0m "+title+"\u001b[31;1m| Invalid URL\u001b[m");
-                System.out.println("\u001b[3mImage: \u001b[m\u001b[34;4m"+inputStream+"\u001b[m");
 
+            if(tag) {
+                String rateString = content.getRateImage();
+                generatorR.createStick(inputStream, rateString, title.replace(":","")+".png");
+                System.out.println("\u001b[3mTitle:\u001b[m\u001b[32;1m "+title+"\u001b[m");
+            } else {
+                generator.createStick(inputStream, title.replace(":","")+".png");
+                System.out.println("\u001b[3mTitle:\u001b[m\u001b[32;1m "+title+"\u001b[m");
             }
+            
+            
+            
         }
     }
 }
