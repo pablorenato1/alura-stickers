@@ -7,9 +7,9 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
-public class GeradoraDeStickers {
+public class GeneratorOFStickers {
 
-    public void createStick(InputStream inputStream, Float rate, String nomeArquivo) throws Exception {
+    public void createStick(InputStream inputStream, String nomeArquivo) throws Exception {
         
         // read image
         BufferedImage originalImage = ImageIO.read(inputStream);
@@ -39,21 +39,8 @@ public class GeradoraDeStickers {
         }
 
         // write a phrase in the new image
-        if (newHeight > 11000) {
-            return;
-        } else if (rate >= 8.8) {
-            graphics.setColor(Color.GREEN);
-            graphics.drawString("BOM DEMAIS"+" "+ rate, (int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
-            
-        } else if (rate >= 8.4 && rate < 8.8) {
-            graphics.setColor(Color.YELLOW);
-            graphics.drawString("TOPZEIRA"+" "+ rate, (int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
-        } else {
-            graphics.setColor(Color.RED);
-            graphics.drawString("ESSE É BOM"+" "+ rate, (int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
-        }
-
-        
+        graphics.setColor(Color.GREEN);
+        graphics.drawString("TOPZEIRA",(int) ((width/7)*3), (int) (newHeight-(newHeight * 0.015)));
 
         // write new image in a archive
         var StringPath = "output/";
